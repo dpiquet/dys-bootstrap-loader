@@ -41,6 +41,16 @@ function get_bootstrap_minified() {
 	else { return false; }
 }
 
+function get_bootstrap_parts() {
+	return get_option('dys-bootstrap-loader-parts');
+}
+
+function set_bootstrap_parts($parts) {
+	if ($parts == get_bootstrap_parts()) { return true; }
+
+	return update_option('dys-bootstrap-loader-parts', $parts);
+}
+
 function enable_bootstrap_minified() {
 	if (get_bootstrap_minified()) { return true; }
 
@@ -57,6 +67,8 @@ function twitterbootstrap_header() {
 	/* Don't load bootstrap on admin side */
 	if ( !is_admin() ) {
 		global $bootstrap_versions;
+
+		if (get_bootstrap_parts() == 'jsonly') { return; }
 
 		$version = get_bootstrap_version();
 		$useMinified = get_bootstrap_minified();
@@ -83,6 +95,8 @@ function twitterbootstrap_footer() {
 	global $bootstrap_versions;
 	$version = get_bootstrap_version();
 
+	if (get_bootstrap_parts() == 'cssonly') { return; }
+
 	if ($version == 'disabled')
 		return;
 	if($version == 'latest')
@@ -102,12 +116,14 @@ function deactivate_bootstrap_loader() {
 	/** remove options from database */
 	delete_option('dys-bootstrap-loader-status');
 	delete_option('dys-bootstrap-loader-use-minified');
+	delete_option('dys-bootstrap-loader-parts');
 }
 
 function activate_bootstrap_loader() {
 	/** add options to database **/
 	add_option('dys-bootstrap-loader-status', 'disabled', '', 'yes');
 	add_option('dys-bootstrap-loader-use-minified', 'yes', '', 'yes');
+	add_option('dys-bootstrap-loader-parts', 'both', '', 'yes');
 }
 
 function bootstrap_loader_configuration_interface() {
@@ -126,14 +142,14 @@ function bootstrap_loader_configuration_interface() {
 		if (array_key_exists($wantedVersion, $bootstrap_versions)) {
 			if ($wantedVersion != $activeVersion) {
 				if (set_bootstrap_version($wantedVersion)) {
-					$message = 'Option successfully updated';
+					$message = __('Option successfully updated');
 					$activeVersion = $wantedVersion;
 				} else {
-					$message = 'Updated failed !';
+					$message = __('Updated failed !');
 				}
 			}
 		}
-		else { $message = 'The version you requested does not exists'; }
+		else { $message = __('The version you requested does not exists'); }
 
 		if ( isset($_GET['dys-loader-use-minified']) && $_GET['dys-loader-use-minified'] == 'on') {
 			$updateMinifiedOption = true;
@@ -153,7 +169,17 @@ function bootstrap_loader_configuration_interface() {
 		}
 
 		if ( $updateMinifiedOption && ! $useMinifiedUpdated ) {
-			$message .= '<p>Warning: could not set option "use minify"</p>';
+			$message .= '<p>'. __('Warning: could not set option "use minify"') . '</p>';
+		}
+
+		if (isset($_GET['dys-loader-parts'])) {
+			$loaderParts = $_GET['dys-loader-parts'];
+
+			if (($loaderParts == 'both' || $loaderParts == 'jsonly') || $loaderParts == 'cssonly') {
+				if (! set_bootstrap_parts($loaderParts)) {
+					$message .= '<p>' . __('Warning: Could not set option parts') . '</p>';
+				}
+			}
 		}
 	}
 
@@ -162,7 +188,6 @@ function bootstrap_loader_configuration_interface() {
 	$configurationForm =  '<form>' .
 		'<input type="hidden" name="dys-bootstrap-loader-action" value="update-option">' .
 		'<input type="hidden" name="page" value="configure-dys-bootstrap">' .
-		'<label>' .
 		'<select name="dys-set-bootstrap-loader-version">';
 
 	foreach ($bootstrap_versions as $version => $path) {
@@ -178,9 +203,24 @@ function bootstrap_loader_configuration_interface() {
 		$configurationForm .= 'CHECKED';
 	}
 
+	
+	$activeParts = get_bootstrap_parts();
+	if($activeParts == 'both') { $both = 'SELECTED'; }
+	else { $both = ''; }
 
-	$configurationForm .= '><label for="dys-loader-use-minified">Use minified</label>' .
-				'<br><input type="submit">'.
+	if($activeParts == 'jsonly') { $jsonly = 'SELECTED'; }
+	else { $jsonly = ''; }
+
+	if($activeParts == 'cssonly') { $cssonly = 'SELECTED'; }
+	else { $cssonly = ''; }
+
+	$configurationForm .= '></select><label for="dys-loader-use-minified">'.__('Use minified') . '</label>' .
+				'<select name="dys-loader-parts">' .
+				' <option value="both" '.$both.'>'.__('Both').'</option>' .
+				' <option value="jsonly" '.$jsonly.'>'.__('JS only').'</option>' .
+				' <option value="cssonly" '.$cssonly.'>'.__('CSS only').'</option>' .
+				'</select>' .
+				'<br><input type="submit">' .
 				'</form>';
 
 	echo $title.$message.$configurationForm;
