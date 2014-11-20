@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== DYS Bootstrap Loader ===
 Contributors: dpik,bcanas
 Tags: bootstrap
 Requires at least: 3.8
