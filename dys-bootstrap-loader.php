@@ -81,7 +81,7 @@ function twitterbootstrap_header() {
 			if ( $version == 'latest' )
 				$version = DYS_BOOTSTRAP_LOADER_LATEST_VERSION;
 
-			wp_register_style( 'bootstrap',
+			wp_register_style( 'bootstrap-css',
 				plugins_url( DYS_BOOTSTRAP_PLUGIN_NAME ) . '/' . $bootstrap_versions[$version] . '/css/' . $cssFile,
 				Array(),
 				$version
@@ -107,7 +107,7 @@ function twitterbootstrap_footer() {
 	if ( $useMinified ) { $jsFile = 'bootstrap.min.js'; }
 	else { $jsFile = 'bootstrap.js'; }
 
-	wp_enqueue_script( 'bootstrap',
+	wp_enqueue_script( 'bootstrap-js',
 		plugins_url( DYS_BOOTSTRAP_PLUGIN_NAME ) . '/'. $bootstrap_versions[$version] . '/js/'. $jsFile, array( 'jquery' ), $version, true );
 }
 
