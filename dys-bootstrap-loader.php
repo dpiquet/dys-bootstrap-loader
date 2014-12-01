@@ -21,7 +21,7 @@ $bootstrap_versions = Array(
 	'3.0.3'    => 'resources/bootstrap-3.0.3',
 	'3.1.0'    => 'resources/bootstrap-3.1.0',
 	'3.2.0'    =>'resources/bootstrap-3.2.0',
-	'3.3.0'    => 'resources/bootstrap-3.3.0'
+	'3.3.0'    => 'resources/bootstrap-3.3.0',
 	'3.3.1'    => 'resources/bootstrap-3.3.1'
 	);
 
