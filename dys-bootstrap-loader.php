@@ -12,7 +12,6 @@ if (! defined('ABSPATH') ) {
 }
 
 define( 'DYS_BOOTSTRAP_LOADER_LATEST_VERSION', '3.3.1' );
-define( 'DYS_BOOTSTRAP_PLUGIN_NAME', 'dys-bootstrap-loader' );
 
 /** Associative array for easy maintenance */
 $bootstrap_versions = Array(
@@ -83,7 +82,7 @@ function twitterbootstrap_header() {
 				$version = DYS_BOOTSTRAP_LOADER_LATEST_VERSION;
 
 			wp_register_style( 'bootstrap-css',
-				plugins_url( DYS_BOOTSTRAP_PLUGIN_NAME ) . '/' . $bootstrap_versions[$version] . '/css/' . $cssFile,
+				plugins_url( '/' . $bootstrap_versions[$version] . '/css/' . $cssFile, __FILE__ ),
 				Array(),
 				$version
 			);
@@ -109,7 +108,10 @@ function twitterbootstrap_footer() {
 	else { $jsFile = 'bootstrap.js'; }
 
 	wp_enqueue_script( 'bootstrap-js',
-		plugins_url( DYS_BOOTSTRAP_PLUGIN_NAME ) . '/'. $bootstrap_versions[$version] . '/js/'. $jsFile, array( 'jquery' ), $version, true );
+		plugins_url( '/'. $bootstrap_versions[$version] . '/js/'. $jsFile, __FILE__),
+		array( 'jquery' ),
+		$version,
+		true );
 }
 
 
@@ -234,7 +236,7 @@ function admin_init_dys_bootstrap_loader() {
 			'manage-dys-bootstrap', 
 			'configure-dys-bootstrap', 
 			'bootstrap_loader_configuration_interface',
-			plugins_url( DYS_BOOTSTRAP_PLUGIN_NAME ) . '/icon/bootstrap.png',
+			plugins_url( '/icon/bootstrap.png', __FILE__ ),
 			79);
 }
 
