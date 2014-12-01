@@ -238,7 +238,7 @@ function admin_init_dys_bootstrap_loader() {
 			79);
 }
 
-add_action( 'wp_head','twitterbootstrap_header' );
+add_action( 'wp_head','twitterbootstrap_header', 1 ); // css must be loaded as early as possible to avoid css override
 add_action( 'wp_footer','twitterbootstrap_footer' );
 add_action( 'admin_menu', 'admin_init_dys_bootstrap_loader' );
 
