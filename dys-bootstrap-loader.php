@@ -11,7 +11,7 @@ if (! defined('ABSPATH') ) {
 	die('');
 }
 
-define( 'DYS_BOOTSTRAP_LOADER_LATEST_VERSION', '3.3.0' );
+define( 'DYS_BOOTSTRAP_LOADER_LATEST_VERSION', '3.3.1' );
 define( 'DYS_BOOTSTRAP_PLUGIN_NAME', 'dys-bootstrap-loader' );
 
 /** Associative array for easy maintenance */
@@ -22,6 +22,7 @@ $bootstrap_versions = Array(
 	'3.1.0'    => 'resources/bootstrap-3.1.0',
 	'3.2.0'    =>'resources/bootstrap-3.2.0',
 	'3.3.0'    => 'resources/bootstrap-3.3.0'
+	'3.3.1'    => 'resources/bootstrap-3.3.1'
 	);
 
 function set_bootstrap_version( $version ) {
