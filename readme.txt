@@ -1,8 +1,8 @@
 === DYS Bootstrap Loader ===
-Contributors: dpik,bcanas
+Contributors: dpik
 Tags: bootstrap
 Requires at least: 3.8
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,8 +11,9 @@ Load bootstrap css, js or both, multisite compatible.
 
 == Description ==
 
-Load bootstrap css, js or both, multisite compatible. You can load from bootstrap 3.0.3 to 3.3.0
+Loads bootstrap css, js or both, multisite compatible. You can load from bootstrap 3.0.3 to 3.3.1
 
+This plugin's a fork of Bastien Canas twitter bootstrap simply: https://wordpress.org/support/view/plugin-reviews/twitter-bootstrap-simply
 
 == Installation ==
 
