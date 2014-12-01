@@ -2,7 +2,7 @@
 /*
 Plugin Name: DYS bootstrap loader
 Description: Load Bootstrap on wordpress blog; MS compatible (Alpha Version)
-Version: 0.a
+Version: 0.1
 Author: Damien PIQUET & Bootstrap Team
 Author URI: https://github.com/dpiquet/
 */
